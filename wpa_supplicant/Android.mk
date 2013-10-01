@@ -60,7 +60,8 @@ INCLUDES += $(LOCAL_PATH)/src/tls
 INCLUDES += $(LOCAL_PATH)/src/utils
 INCLUDES += $(LOCAL_PATH)/src/wps
 INCLUDES += external/openssl/include
-INCLUDES += system/security/keystore
+# Engle, 修改头文件定义
+INCLUDES += system/security/keystore/include/keystore
 
 OBJS = config.c
 OBJS += src/utils/common.c
@@ -1135,7 +1136,7 @@ endif
 ifneq ($(BOARD_WPA_SUPPLICANT_PRIVATE_LIB),)
 LOCAL_STATIC_LIBRARIES += $(BOARD_WPA_SUPPLICANT_PRIVATE_LIB)
 endif
-LOCAL_SHARED_LIBRARIES := libc libcutils libcrypto libssl
+LOCAL_SHARED_LIBRARIES := libc libcutils libcrypto libssl libkeystore_binder
 LOCAL_CFLAGS := $(L_CFLAGS)
 LOCAL_SRC_FILES := $(OBJS)
 LOCAL_C_INCLUDES := $(INCLUDES)
@@ -1148,7 +1149,7 @@ include $(BUILD_EXECUTABLE)
 #ifdef CONFIG_DRIVER_CUSTOM
 #LOCAL_STATIC_LIBRARIES := libCustomWifi
 #endif
-#LOCAL_SHARED_LIBRARIES := libc libcrypto libssl
+#LOCAL_SHARED_LIBRARIES := libc libcrypto libssl libkeystore_binder
 #LOCAL_CFLAGS := $(L_CFLAGS)
 #LOCAL_SRC_FILES := $(OBJS_t)
 #LOCAL_C_INCLUDES := $(INCLUDES)
@@ -1160,6 +1161,7 @@ include $(BUILD_EXECUTABLE)
 #
 #include $(CLEAR_VARS)
 #LOCAL_MODULE := wpa_supplicant.conf
+#LOCAL_MODULE_TAGS := user
 #LOCAL_MODULE_CLASS := ETC
 #LOCAL_MODULE_PATH := $(local_target_dir)
 #LOCAL_SRC_FILES := $(LOCAL_MODULE)

@@ -51,6 +51,11 @@
 #include <openssl/pem.h>
 #include "keystore_get.h"
 
+// Engle, 添加定义保证对external/wpa_supplicant_6的兼容性
+#ifndef KEYSTORE_MESSAGE_SIZE
+#define KEYSTORE_MESSAGE_SIZE 65535
+#endif
+
 static BIO *BIO_from_keystore(const char *key)
 {
 	BIO *bio = NULL;
